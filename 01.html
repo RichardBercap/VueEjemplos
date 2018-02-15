@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="valor">
+    <h5>{{valor}}</h5>
+
+    <select v-model="mostrar">
+      <option  disabled selected>Escoge un valor</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <input type="text"  v-bind:disabled="mostrar === 'Si'">
+
+
+
+  <template v-if="mostrar === 'Si'" style="transition:.5s;">
+    <h1>Hola</h1>
+  </template>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  var app = new Vue({
+    el:"#app",
+    data:{
+      mostrar:'dd',
+      valor:'',
+      habilitar:false
+    }
+  })
+</script>
+</html>
