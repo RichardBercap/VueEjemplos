@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container" id="app">
+      <div class="col-md-8 col-md-push-2">
+        <div class="col-md-7">
+          <input type="text" class="form-control" v-model="name" v-on:keyup="search(name)">
+        </div>
+
+        <button class="btn btn-success col-md-5" v-on:click="search(name)">Buscar</button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="persona in persons">
+            <td></td>
+            <td>  {{ persona.name }}</td>
+            <td>  {{ persona.lastname }}</td>
+            <td>  {{ persona.years }}</td>
+          </tr>
+        </tbody>
+
+      </table>
+      {{ persons }}
+    </div>
+  </body>
+  <script type="text/javascript" src="vue.js"></script>
+  <script type="text/javascript">
+    const app = new Vue({
+      el:"#app",
+      data:{
+        name:"",
+        personas:[
+          {"name":"Richard","lastname":"Berna", "years":26},
+          {"name":"Rodrigo","lastname":"Nina", "years":28},
+          {"name":"Mauricio","lastname":"Bsdcfv", "years":30},
+          {"name":"Jorge","lastname":"Scdv", "years":47},
+          {"name":"Joel","lastname":"Sdc", "years":52},
+          {"name":"Ximwna","lastname":"scdsc", "years":20},
+          {"name":"Carla","lastname":"ppsdc", "years":21},
+          {"name":"Richard","lastname":"Berna", "years":22}
+        ],
+        persons:[]
+      },
+      methods:{
+        search:function(n){
+          this.persons =[];
+          var expresion;
+          for (var i in this.personas) {
+            //if (this.personas[i].name == n) {
+              //alert("Encontrado");
+              //this.persons.push(this.personas[i]);
+            //}
+            expresion = n;
+            var re = new RegExp(expresion);
+            //alert(re)
+            if (this.personas[i].name.match(re)) {
+                this.persons.push(this.personas[i]);
+              }
+
+
+          }
+        }
+      }
+    })
+  </script>
+</html>
