@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <title>Home</title>
+  <style media="screen">
+  :root {
+    --width-inputs: 80%;
+    --bg-color-main: #35495E;
+    --color-main: #41B883;;
+    --color-ok: #4CAF50;
+    --color-error: #EF5350;
+    --font-main: sans-serif;
+  }
+  .ContactForm-message {
+    padding: .5rem;
+    font-size: .85rem;
+    background-color: var(--color-main);
+    color: var(--bg-color-main);
+  }
+  .u-success { background-color: var(--color-ok); }
+
+  .u-error { background-color: var(--color-error); }
+  </style>
+</head>
+<body>
+  <main class="container" id="app">
+    <h1 class="text-center">ENCIAR MENSAJE</h1>
+    <form action="" id="formMensaje">
+      <div class="form-group row">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" name="name" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" @keyup="validateData">
+
+        <transition name="fade">
+          <span v-show="message.name" v-text="message.name" class="ContactForm-message u-error"></span>
+        </transition>
+
+      </div>
+      <div class="form-group row">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" name="email">
+      </div>
+      <div class="form-group row">
+        <label for="message">Message:</label>
+        <textarea name="message" rows="8" cols="80" class="form-control"></textarea>
+      </div>
+      <div class="form-group row">
+        <button type="submit" name="button">Enviar</button>
+      </div>
+    </form>
+  </main>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script type="text/javascript">
+    app = new Vue({
+      el:"#app",
+      data:{
+        formType: true,
+        message: {
+          name: '',//se mostrará cuando el modelo no este vacio
+          email: '',
+          message: ''
+        },
+        formats: {
+          name: '',
+          email: ''
+        },
+      },
+      methods:{
+        validateData(e){
+          //console.log(e);
+          let input = e.target;
+          let  expression;
+
+          if (input.pattern) {
+            let regex = new RegExp(input.pattern); //create a new regular expression
+            expression = !regex.exec(input.value);// evaluate the input´s value
+          } else {
+            expression = !input.value;
+          }
+          if (expression) {
+            this.message[input.name] = `Dato incorrecto, ${input.title}`; //add the message inside de meesage object
+          } else {
+            this.message[input.name] = ''
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
